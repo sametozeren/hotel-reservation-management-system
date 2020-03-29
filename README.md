@@ -1,4 +1,4 @@
-# otel-reservation-management-system
+# OTEL RESERVATİON MANAGAMENT SYSTEM - VUEJS WİTH ELECTRONJS
 
 ## Project setup
 ```
