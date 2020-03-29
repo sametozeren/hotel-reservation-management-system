@@ -1,7 +1,7 @@
 <template>
     <div id="preloader" :class="{ preloader : !isVisible }">
         <div class="canvas">
-            <h1>KAÇIN NENELER, GELİYOR DEDELER</h1>
+            <h1>KAÇIN NENELER, GELİYOR DEDELER.DIPSSSS</h1>
             <div class="spinner"></div>
         </div>
     </div>
