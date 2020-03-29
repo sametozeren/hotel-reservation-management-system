@@ -1,7 +1,7 @@
 <template>
     <div id="preloader" :class="{ preloader : !isVisible }">
         <div class="canvas">
-            <h1>Uygulama Açılıyor Lütfen Bekleyin</h1>
+            <h1>Uygulama Açılıyor Lütfen Bekleyin...</h1>
             <div class="spinner"></div>
         </div>
     </div>
