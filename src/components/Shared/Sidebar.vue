@@ -1,67 +1,94 @@
 <template>
-    <div class="page-content d-flex align-items-stretch">
-        <div class="compact-sidebar has-shadow">
-            <nav class="side-navbar box-scroll sidebar-scroll">
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="pages-newsfeed.html">
-                            <i class="ti ti-receipt"></i><span>Newsfeed</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="app-chat.html">
-                            <i class="ti ti-comments"></i><span>Messages</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages-friends.html">
-                            <i class="ti ti-user"></i><span>Friends</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages-groups.html">
-                            <i class="ti ti-world"></i><span>Groups</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages-events.html">
-                            <i class="ti ti-calendar"></i><span>Events</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">
-                            <i class="ti ti-headphone"></i><span>Musics</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages-albums.html">
-                            <i class="ti ti-gallery"></i><span>Images</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages-videos.html">
-                            <i class="ti ti-control-play"></i><span>Videos</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">
-                            <i class="ti ti-stats-up"></i><span>Statistics</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="content-inner compact">
-        </div>
+    <div class="left-menu navbar bg-dark">
+        <ul>
+            <li>
+                <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="menu-item-text animated">Home</span>
+                </a>
+            </li>
+            <li>
+                <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="menu-item-text animated">Home</span>
+                </a>
+            </li>
+            <li>
+                <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="menu-item-text animated">Home</span>
+                </a>
+            </li>
+        </ul>
     </div>
 </template>
 
 <script>
     export default {
+        data() {
+            return {
+                hover: false,
+            };
+        },
+        methods: {
+            mouseMove: (event) => {
+                event.target.parentNode.querySelector('span').classList.remove('fadeOutDown')
+                event.target.parentNode.querySelector('span').classList.add('fadeInUp')
+            },
+            mouseLeave: (event) => {
+                event.target.parentNode.querySelector('span').classList.remove('fadeInUp')
+                event.target.parentNode.querySelector('span').classList.add('fadeOutDown')
+            },
+        }
 
     }
 </script>
 
 <style>
+    .left-menu {
+        height: 100%;
+        width: 90px;
+        position: fixed;
+    }
 
+    .left-menu ul {
+        list-style-type: none;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        vertical-align: middle;
+    }
+
+    .left-menu ul li {
+        width: 100%;
+        text-align: center;
+        padding: 5px 0px 5px 0px;
+        overflow: hidden;
+    }
+
+    .left-menu ul li span {
+        display: block;
+        opacity: 0;
+        transition: .3s;
+    }
+
+    .left-menu ul li a {
+        color: #fff;
+        transition: .3s;
+        font-weight: 700;
+    }
+
+    .left-menu ul li a:hover {
+        color: #e91e63;
+        transition: .3s;
+    }
+
+    .left-menu ul li a:hover span {
+        opacity: 1;
+        transition: .3s;
+    }
+
+    .bg-dark {
+        box-shadow: none !important;
+    }
 </style>

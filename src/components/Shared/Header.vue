@@ -1,65 +1,34 @@
 <template>
-    <header class="header">
-        <nav class="navbar fixed-top">
-            <div class="navbar-holder d-flex align-items-center align-middle justify-content-between">
-                <div class="navbar-header">
-                    <a href="db-social.html" class="navbar-brand">
-                        <div class="brand-image brand-big">
-                            <img src="assets/icons/hotel.svg" alt="logo" style="width: 60px; height:50px" class="logo-big animated infinite swing">
-                        </div>
-                        <div class="brand-image brand-small">
-                            <img src="assets/icons/hotel.svg" alt="logo" style="width: 60px; height:50px" class="logo-small animated infinite swing">
-                        </div>
-                    </a>
-                </div>
-                <!-- End Logo -->
-                <!-- Begin Navbar Menu -->
-                <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
-                    <!-- User -->
-                    <li class="nav-item dropdown"><a id="user" rel="nofollow" data-target="#" href="#"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><img
-                                src="assets/img/avatar/avatar-01.jpg" alt="..." class="avatar rounded-circle"></a>
-                        <ul aria-labelledby="user" class="user-size dropdown-menu">
-                            <li class="welcome">
-                                <a href="#" class="edit-profil"><i class="la la-gear"></i></a>
-                                <img src="assets/img/avatar/avatar-01.jpg" alt="..." class="rounded-circle">
-                            </li>
-                            <li>
-                                <a href="db-social.html" class="dropdown-item">
-                                    Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="app-mail.html" class="dropdown-item">
-                                    Messages
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item no-padding-bottom">
-                                    Settings
-                                </a>
-                            </li>
-                            <li class="separator"></li>
-                            <li>
-                                <a href="pages-faq.html" class="dropdown-item no-padding-top">
-                                    Faq
-                                </a>
-                            </li>
-                            <li><a rel="nofollow" href="pages-login.html" class="dropdown-item logout text-center"><i
-                                        class="ti-power-off"></i></a></li>
-                        </ul>
-                    </li>
-                    <!-- End User -->
-                    <!-- Begin Quick Actions -->
-                    <li class="nav-item"><a href="#off-canvas" class="open-sidebar"><i class="la la-ellipsis-h"></i></a>
-                    </li>
-                    <!-- End Quick Actions -->
-                </ul>
-                <!-- End Navbar Menu -->
+    <nav class="navbar navbar-color-on-scroll bg-dark fixed-top navbar-expand-lg" color-on-scroll="100">
+        <div class="container-fluid">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="javascript:void(0)">
+                    <div class="brand-image brand-big">
+                        <img src="assets/img/hotel.svg" alt="logo" style="width: 70px; height:60px"
+                            class="animated infinite swing">
+                    </div>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-            <!-- End Topbar -->
-        </nav>
-    </header>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link">
+                            <i class="material-icons">apps</i> Template
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </template>
 
 <script>
@@ -69,5 +38,8 @@
 </script>
 
 <style>
-
+    .navbar {
+        border-radius: 0px;
+        box-shadow: none;
+    }
 </style>
