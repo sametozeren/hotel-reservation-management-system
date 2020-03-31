@@ -11,7 +11,7 @@
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
                     aria-label="Toggle navigation">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">TEST</span>
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
@@ -22,7 +22,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a href="javascript:void(0)" class="nav-link">
-                            <i class="material-icons">apps</i> Template
+                            <i class="material-icons">apps</i> TEST
                         </a>
                     </li>
                 </ul>
