@@ -3,20 +3,26 @@
         <ul>
             <li>
                 <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
-                    <i class="fa fa-home fa-2x"></i>
-                    <span class="menu-item-text animated">Home</span>
+                    <i class="material-icons menu-icons-size">home</i>
+                    <span class="menu-item-text animated">Anasayfa</span>
                 </a>
             </li>
             <li>
                 <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
-                    <i class="fa fa-home fa-2x"></i>
-                    <span class="menu-item-text animated">Home</span>
+                    <i class="material-icons menu-icons-size">meeting_room</i>
+                    <span class="menu-item-text animated">Odalar</span>
                 </a>
             </li>
             <li>
                 <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
-                    <i class="fa fa-home fa-2x"></i>
-                    <span class="menu-item-text animated">Home</span>
+                    <i class="material-icons menu-icons-size">history</i>
+                    <span class="menu-item-text animated">Rezervasyon Geçmişi</span>
+                </a>
+            </li>
+            <li>
+                <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
+                    <i class="material-icons menu-icons-size">receipt</i>
+                    <span class="menu-item-text animated">Faturalar</span>
                 </a>
             </li>
         </ul>
@@ -47,7 +53,7 @@
 <style>
     .left-menu {
         height: 100%;
-        width: 90px;
+        width: 110px;
         position: fixed;
     }
 
@@ -61,6 +67,7 @@
 
     .left-menu ul li {
         width: 100%;
+        height:100px;
         text-align: center;
         padding: 5px 0px 5px 0px;
         overflow: hidden;
@@ -90,5 +97,9 @@
 
     .bg-dark {
         box-shadow: none !important;
+    }
+
+    .menu-icons-size{
+        font-size:35px;
     }
 </style>
