@@ -5,7 +5,7 @@
 
             </div>
             <div class="col-md-6">
-
+adsasdas
             </div>
         </div>
     </div>
