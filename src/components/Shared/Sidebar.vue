@@ -1,30 +1,30 @@
 <template>
     <div class="left-menu navbar bg-dark">
         <ul>
-            <li>
-                <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
+            <router-link to='/' tag="li">
+                <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)">
                     <i class="material-icons menu-icons-size">home</i>
                     <span class="menu-item-text animated">Anasayfa</span>
                 </a>
-            </li>
-            <li>
+            </router-link>
+            <router-link to="/rooms" tag="li">
                 <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
                     <i class="material-icons menu-icons-size">meeting_room</i>
                     <span class="menu-item-text animated">Odalar</span>
                 </a>
-            </li>
-            <li>
+            </router-link>
+            <!--<router-link to="/test" tag='li'>
                 <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
                     <i class="material-icons menu-icons-size">history</i>
                     <span class="menu-item-text animated">Rezervasyon Geçmişi</span>
                 </a>
-            </li>
-            <li>
+            </router-link>
+            <router-link to="/label" tag='li'>
                 <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
                     <i class="material-icons menu-icons-size">receipt</i>
                     <span class="menu-item-text animated">Faturalar</span>
                 </a>
-            </li>
+            </router-link>-->
         </ul>
     </div>
 </template>
@@ -67,7 +67,7 @@
 
     .left-menu ul li {
         width: 100%;
-        height:100px;
+        height: 100px;
         text-align: center;
         padding: 5px 0px 5px 0px;
         overflow: hidden;
@@ -99,7 +99,7 @@
         box-shadow: none !important;
     }
 
-    .menu-icons-size{
-        font-size:35px;
+    .menu-icons-size {
+        font-size: 35px;
     }
 </style>

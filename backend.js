@@ -2,6 +2,8 @@ const {
   app,
   BrowserWindow
 } = require('electron');
+const url = require('url');
+const path = require('path');
 
 function createWindow() {
   // Yeni pencere oluşturma
@@ -14,7 +16,13 @@ function createWindow() {
     },
   });
 
-  mainWindow.loadFile('dist/index.html');
+  mainWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, 'dist/index.html'),
+      protocol: 'file:',
+      slashes: true,
+    }),
+  );
   //uygulama açıldığında geliştirici penceresini açıyor
   mainWindow.webContents.openDevTools();
 }
@@ -22,7 +30,7 @@ function createWindow() {
 //uygulama hazır olduğunda
 app.on('ready', () => {
   createWindow();
-  
+
 });
 
 //tüm pencereleri kapatır
