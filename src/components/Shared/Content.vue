@@ -1,16 +1,13 @@
 <template>
     <div class='content container-fluid'>
-        <HotelReport />
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import HotelReport from '../Widgets/HotelReport'
 
     export default {
-        components:{
-            HotelReport,
-        }
+    
     }
 </script>
 

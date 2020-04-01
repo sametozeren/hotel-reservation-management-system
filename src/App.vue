@@ -15,11 +15,11 @@
         components: {
             Header,
             Sidebar,
-            Content
+            Content,
         }
     }
 </script>
 
 <style>
-
+    
 </style>
