@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <h2 class="pl-4 text-muted font-weight-bold">Odalar</h2>
+    <h4 class="pl-4 pt-2 text-muted font-weight-bold">Odalar</h4>
     <div class="col-md-12">
       <div class="container-fluid">
         <div class="row">
