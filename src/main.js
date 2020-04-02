@@ -2,10 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router';
 import { routes } from './routes';
+import VueGoogleCharts from 'vue-google-charts'
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter);
+Vue.use(VueGoogleCharts);
 
 const router = new VueRouter({
   routes, //es6 ya göre sadece routes yazıldı
