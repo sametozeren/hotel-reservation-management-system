@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <h2 class="pl-4 ml-2 mb-0 text-muted font-weight-bold">Anasayfa</h2>
+        <h3 class="pl-4 pt-3 ml-2 mb-0 text-muted font-weight-bold">Anasayfa</h3>
         <div class="col-md-12">
             <HotelReport />
         </div>
