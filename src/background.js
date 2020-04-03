@@ -9,6 +9,7 @@ import {
   createProtocol,
   /* installVueDevtools */
 } from 'vue-cli-plugin-electron-builder/lib'
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -79,7 +80,9 @@ app.on('ready', async () => {
     // }
 
   }
-  createWindow()
+  createWindow();
+
+  connectToDatabase();
 })
 
 // Exit cleanly on request from parent process in development mode.
@@ -95,4 +98,37 @@ if (isDevelopment) {
       app.quit()
     })
   }
+}
+
+function connectToDatabase()
+{
+    var sql = require("mssql");
+    console.log('fonksiyon')
+    var config = {
+        user:'klaus',
+        password:'sametozrn.123',
+        server: 'localhost', 
+        database: 'otelresepsiyon',
+    };
+    
+    // connect to your database
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+            
+        // query to the database and get the records
+        request.query('SELECT * FROM Ulkeler', function (err, recordset) {
+            if (err) {
+                console.log("Something went wrong")
+            }
+            else{
+                
+                //Conver Return Data Object to string
+                var result = JSON.stringify(recordset);
+                console.log(result);
+
+            }
+        });
+    });
 }
