@@ -1,7 +1,7 @@
 <template>
     <div>
         <h4 class="pl-4 pt-2 text-muted font-weight-bold">Oda Detayları {{id}}</h4>
-        <router-link tag="a" class="btn btn-primary" :to="{ name: 'roomEdit', params: { id : id}}">DÜZENLE</router-link>
+        <router-link tag="a" class="btn btn-primary ml-4" :to="{ name: 'roomEdit', params: { id : id}}">DÜZENLE</router-link>
     </div>
 </template>
 
