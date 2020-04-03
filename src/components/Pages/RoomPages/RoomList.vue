@@ -1,10 +1,13 @@
 <template>
   <div class="row">
     <h4 class="pl-4 pt-2 text-muted font-weight-bold">Odalar</h4>
+    <div class="col-md-12 pl-4">
+      <router-link tag="a" class="btn btn-success" :to="{name:'newRoom'}">Yeni Oda Ekle</router-link>
+    </div>
     <div class="col-md-12">
       <div class="container-fluid">
         <div class="row">
-          <router-link v-for="(room, index) in rooms" tag="a" :to="{ name: 'roomdetail', params: { id : room.id}}"
+          <router-link v-for="(room, index) in rooms" tag="a" :to="{ name: 'roomDetail', params: { id : room.id}}"
             :key="index" class="btn btn-danger p-5 m-2 col-md-1">
             {{room.no}}
           </router-link>
@@ -90,6 +93,18 @@
             id: 18,
             no: '217'
           },
+          {
+            id: 18,
+            no: '217'
+          },
+          {
+            id: 18,
+            no: '217'
+          },
+          {
+            id: 18,
+            no: '217'
+          }
         ]
       }
     },
