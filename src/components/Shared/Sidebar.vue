@@ -13,6 +13,12 @@
                     <span class="menu-item-text animated">Odalar</span>
                 </a>
             </router-link>
+            <router-link to="/customers" tag="li">
+                <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
+                    <i class="material-icons menu-icons-size">supervisor_account</i>
+                    <span class="menu-item-text animated">Müşteriler</span>
+                </a>
+            </router-link>
             <!--<router-link to="/test" tag='li'>
                 <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
                     <i class="material-icons menu-icons-size">history</i>
