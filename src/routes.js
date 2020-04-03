@@ -8,6 +8,10 @@ import NewRoom from './components/Pages/RoomPages/NewRoom';
 
 import Customers from './components/Pages/CustomerPages/Customers';
 import CustomerList from './components/Pages/CustomerPages/CustomerList';
+import CustomerDetail from './components/Pages/CustomerPages/CustomerDetail';
+import CustomerEdit from './components/Pages/CustomerPages/CustomerEdit';
+import CustomerDelete from './components/Pages/CustomerPages/CustomerDelete';
+import NewCustomer from './components/Pages/CustomerPages/NewCustomer';
 
 export const routes = [{
     path: '/',
@@ -35,8 +39,8 @@ export const routes = [{
         component: NewRoom
     }],
 }, {
-    path: '/customer',
-    name: 'customer',
+    path: '/customers',
+    name: 'customers',
     component: Customers,
     children: [{
         path: '',
@@ -44,16 +48,20 @@ export const routes = [{
         component: CustomerList
     }, {
         path: ':id',
-        name: 'roomDetail',
-        component: RoomDetail
+        name: 'customerDetail',
+        component: CustomerDetail
     }, {
         path: ':id/edit',
-        name: 'roomEdit',
-        component: RoomEdit
+        name: 'customerEdit',
+        component: CustomerEdit
     },{
-        path: '/newRoom',
-        name: 'newRoom',
-        component: NewRoom
+        path: ':id/delete',
+        name: 'customerDelete',
+        component: CustomerDelete
+    },{
+        path: '/newCustomer',
+        name: 'newCustomer',
+        component: NewCustomer
     }],
 },{
     path: '*',
