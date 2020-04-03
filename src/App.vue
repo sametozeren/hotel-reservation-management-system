@@ -21,5 +21,8 @@
 </script>
 
 <style>
-    
+/*Scroll hidden*/
+    ::-webkit-scrollbar {
+    display: none;
+    }
 </style>

@@ -14,12 +14,9 @@
 <style>
     .content {
         margin-left: 110px;
-        position: fixed;
+        position: relative;
         min-height: 100%;
         margin-top: 72px;
-        padding-right: 0;
-        padding-left: 0;
-        margin-right: auto;
         width: calc(100% - 110px);
     }
 </style>

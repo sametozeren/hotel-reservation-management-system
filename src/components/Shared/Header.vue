@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-color-on-scroll bg-dark fixed-top navbar-expand-lg" color-on-scroll="100">
+    <nav class="navbar bg-dark fixed-top ">
         <div class="container-fluid">
             <div class="navbar-translate">
                 <router-link to='/' tag="a" class="navbar-brand">
