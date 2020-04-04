@@ -24,17 +24,16 @@
 </template>
 
 <script>
-    const electron = require('electron');
-
-    const {ipcRenderer} = electron;
+    //const {ipcRenderer} = require('electron');
 
     export default {
         methods: {
-            menuMinimizedBtnClicked:() => {
+            /*menuMinimizedBtnClicked:()=>{
+                ipcRenderer.send('menuMinimizedBtnClicked');
             },
-            menuClosedBtnClicked:() => {
+            menuClosedBtnClicked:()=>{
                 ipcRenderer.send('menuClosedBtnClicked');
-            }
+            }*/
         }
     }
 </script>
