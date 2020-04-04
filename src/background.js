@@ -3,7 +3,8 @@
 import {
   app,
   protocol,
-  BrowserWindow
+  BrowserWindow,
+  ipcMain
 } from 'electron'
 import {
   createProtocol,
@@ -11,36 +12,33 @@ import {
 } from 'vue-cli-plugin-electron-builder/lib'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let win;
 
-// Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{
   scheme: 'app',
   privileges: {
     secure: true,
     standard: true
-  }
-}])
+  },
+}]);
 
 function createWindow() {
-  // Create the browser window.
   win = new BrowserWindow({
     fullscreen: true,
-    frame: true,
+    frame: false,
     webPreferences: {
       nodeIntegration: true
-    }
-  })
+    },
+  });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+
+    if (!process.env.IS_TEST) {
+      win.webContents.openDevTools();
+    }
   } else {
     createProtocol('app')
-
     win.loadURL('app://./index.html')
   }
 
@@ -49,18 +47,17 @@ function createWindow() {
   })
 }
 
-// Quit when all windows are closed.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
-})
+});
 
 app.on('activate', () => {
   if (win === null) {
-    createWindow()
+    createWindow();
   }
-})
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -82,53 +79,70 @@ app.on('ready', async () => {
   }
   createWindow();
 
+
+
+
+  ipcMain.on('menuMinimizedBtnClicked', (err, data) => {
+    win.minimize();
+  });
+
+  ipcMain.on('menuClosedBtnClicked', (err, data) => {
+    app.quit();
+  });
+
+
+
+
+
+
+
+
+
+
   connectToDatabase();
 })
 
-// Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
     process.on('message', data => {
       if (data === 'graceful-exit') {
-        app.quit()
+        app.quit();
       }
-    })
+    });
   } else {
     process.on('SIGTERM', () => {
-      app.quit()
-    })
+      app.quit();
+    });
   }
 }
 
-function connectToDatabase()
-{
-    var sql = require("mssql");
-    console.log('fonksiyon')
-    var config = {
-        user:'klaus',
-        password:'sametozrn.123',
-        server: 'localhost', 
-        database: 'otelresepsiyon',
-    };
-    
-    // connect to your database
-    sql.connect(config, function (err) {
-        if (err) console.log(err);
-        // create Request object
-        var request = new sql.Request();
-            
-        // query to the database and get the records
-        request.query('SELECT * FROM Ulkeler', function (err, recordset) {
-            if (err) {
-                console.log("Something went wrong")
-            }
-            else{
-                
-                //Conver Return Data Object to string
-                var result = JSON.stringify(recordset);
-                console.log(result);
+function connectToDatabase() {
+  var sql = require("mssql");
+  console.log('fonksiyon')
+  var config = {
+    user: 'klaus',
+    password: 'sametozrn.123',
+    server: 'localhost',
+    database: 'otelresepsiyon',
+  };
 
-            }
-        });
+  // connect to your database
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    // create Request object
+    var request = new sql.Request();
+
+    // query to the database and get the records
+    request.query('SELECT * FROM Ulkeler', function (err, recordset) {
+      if (err) {
+        console.log("Something went wrong")
+      } else {
+
+        //Conver Return Data Object to string
+        var result = JSON.stringify(recordset);
+        console.log(result);
+
+      }
     });
+  });
 }
