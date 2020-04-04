@@ -5,14 +5,16 @@ import {
   protocol,
   BrowserWindow,
   ipcMain
-} from 'electron'
+} from 'electron';
 import {
   createProtocol,
-  /* installVueDevtools */
-} from 'vue-cli-plugin-electron-builder/lib'
+} from 'vue-cli-plugin-electron-builder/lib';
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const isDevelopment = process.env.NODE_ENV !== 'production';
 let win;
+var sql = require("mssql");
+const Store = require('electron-store');
+const store = new Store({ watch: true });
 
 protocol.registerSchemesAsPrivileged([{
   scheme: 'app',
@@ -49,12 +51,14 @@ function createWindow() {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    store.clear();
     app.quit();
   }
 });
 
 app.on('activate', () => {
   if (win === null) {
+    store.clear();
     createWindow();
   }
 });
@@ -79,9 +83,6 @@ app.on('ready', async () => {
   }
   createWindow();
 
-
-
-
   ipcMain.on('menuMinimizedBtnClicked', (err, data) => {
     win.minimize();
   });
@@ -90,17 +91,12 @@ app.on('ready', async () => {
     app.quit();
   });
 
-
-
-
-
-
-
-
-
-
   connectToDatabase();
-})
+
+  store.onDidChange((newVal,oldVal)=>{
+    console.log(newVal)
+  });
+});
 
 if (isDevelopment) {
   if (process.platform === 'win32') {
@@ -117,8 +113,6 @@ if (isDevelopment) {
 }
 
 function connectToDatabase() {
-  var sql = require("mssql");
-  console.log('fonksiyon')
   var config = {
     user: 'klaus',
     password: 'sametozrn.123',
@@ -137,11 +131,10 @@ function connectToDatabase() {
       if (err) {
         console.log("Something went wrong")
       } else {
-
-        //Conver Return Data Object to string
         var result = JSON.stringify(recordset);
-        console.log(result);
 
+
+        store.set('ulkeler', result);
       }
     });
   });

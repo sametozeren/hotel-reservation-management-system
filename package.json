@@ -14,12 +14,14 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.4",
+    "electron-store": "^5.1.1",
     "jquery": "^3.4.1",
     "mssql": "^6.2.0",
     "popper.js": "^1.16.1",
     "vue": "^2.6.11",
     "vue-google-charts": "^0.3.2",
-    "vue-router": "^3.1.6"
+    "vue-router": "^3.1.6",
+    "vuejs-datepicker": "^1.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
