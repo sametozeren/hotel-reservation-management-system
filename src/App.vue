@@ -16,7 +16,7 @@
             Header,
             Sidebar,
             Content,
-        }
+        },
     }
 </script>
 
