@@ -91,6 +91,17 @@ app.on('ready', async () => {
     app.quit();
   });
 
+  ipcMain.on('ulkeler', (err, data) => {
+    console.log(data);
+  });
+
+  ipcMain.on('newRoom', (err, data) => {
+    console.log(data);
+    win.webContents.send('todo:newItem','yeni oda eklendi');
+  });
+
+
+
   connectToDatabase();
 
   store.onDidChange((newVal,oldVal)=>{

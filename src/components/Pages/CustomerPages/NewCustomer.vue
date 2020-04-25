@@ -71,6 +71,10 @@
 <script>
   import DatePicker from 'vuejs-datepicker';
   import Store from 'electron-store';
+  
+  const electron = require('electron');
+ 
+  const {ipcRenderer} = electron;
 
   const store = new Store();
 
@@ -90,7 +94,8 @@
           UlkeAdı:'samet',
         });
 
-        store.set('ulkeler',[]);
+        //store.set('ulkeler',[]);
+        ipcRenderer.send('ulkeler', 'triggerClick');
       }
     }
   }

@@ -32,7 +32,7 @@
         <div class="form-group col-md-12">
           <div class="col-md-6">
             <router-link :to="{ name: 'roomList'}" tag="button" class="btn btn-default">Geri</router-link>
-            <button class="btn btn-success">Ekle</button>
+            <button class="btn btn-success" @click="newRoom()">Ekle</button>
           </div>
         </div>
       </div>
@@ -42,9 +42,21 @@
 </template>
 
 <script>
-  export default {
+  const electron = require('electron');
 
+  const { ipcRenderer } = electron;
+
+  export default {
+    methods: {
+      newRoom() {
+        ipcRenderer.send('newRoom', 'triggerNewRoom');
+      },
+    },
   }
+
+  ipcRenderer.on('todo:newItem',(err,data)=>{
+    console.log(data)
+  });
 </script>
 
 <style>
