@@ -3,7 +3,7 @@
     <div class="row">
       <h4 class="pl-4 pt-2 text-muted font-weight-bold">Yeni Oda Ekle</h4>
     </div>
-    <form>
+    <form @submit.prevent> 
       <div class="row">
         <div class="form-group col-md-12">
           <div class="col-md-6">
@@ -32,7 +32,7 @@
         <div class="form-group col-md-12">
           <div class="col-md-6">
             <router-link :to="{ name: 'roomList'}" tag="button" class="btn btn-default">Geri</router-link>
-            <button class="btn btn-success" @click="newRoom()">Ekle</button>
+            <button class="btn btn-success" @click.prevent="newRoom()">Ekle</button>
           </div>
         </div>
       </div>
