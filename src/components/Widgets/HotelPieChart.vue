@@ -1,5 +1,5 @@
 <template>
-  <div id="pieReport" class="row">
+  <div id="pieReport" class="row pt-5">
     <div class="col-md-6 col-lg-12">
       <GChart type="ColumnChart" :data="chartData" :options="chartOptions" :resizeDebounce="500" />
     </div>
@@ -10,13 +10,12 @@
   export default {
     data() {
       return {
-        // Array will be automatically processed with visualization.arrayToDataTable function
         chartData: [
-          ['Year', 'Sales', 'Expenses', 'Profit'],
-          ['2014', 1000, 400, 200],
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350]
+          ['AY', 'Toplam Müşteri Sayısı', 'Toplam Kazanç'],
+          ['Şubat', 1000, 400],
+          ['Mart', 1170, 460],
+          ['Nisan', 660, 1120],
+          ['Mayıs', 1030, 540]
         ],
         chartOptions: {
           chart: {
