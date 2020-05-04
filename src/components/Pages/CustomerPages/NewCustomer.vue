@@ -95,7 +95,7 @@
         });
 
         //store.set('ulkeler',[]);
-        ipcRenderer.send('ulkeler', 'triggerClick');
+        ipcRenderer.send('ulkeler', 'SELECT * FROM Ulkeler');
       }
     }
   }

@@ -13,8 +13,6 @@ import {
 const isDevelopment = process.env.NODE_ENV !== 'production';
 let win;
 var sql = require("mssql");
-const Store = require('electron-store');
-const store = new Store({ watch: true });
 
 protocol.registerSchemesAsPrivileged([{
   scheme: 'app',
@@ -24,6 +22,11 @@ protocol.registerSchemesAsPrivileged([{
   },
 }]);
 
+/**
+ * Creates the application window
+ * @method createWindow
+ * @return none;
+ */
 function createWindow() {
   win = new BrowserWindow({
     fullscreen: true,
@@ -40,73 +43,51 @@ function createWindow() {
       win.webContents.openDevTools();
     }
   } else {
-    createProtocol('app')
-    win.loadURL('app://./index.html')
+    createProtocol('app');
+    win.loadURL('app://./index.html');
   }
 
   win.on('closed', () => {
     win = null
-  })
+  });
+}
+
+/**
+ * Sends a query to the database and returns the result
+ * @method sendQueryToDatabase
+ * @param {string} incomingQuery
+ * @return string;
+ */
+function sendQueryToDatabase(incomingQuery) {
+  var config = {
+    user: 'klaus',
+    password: 'sametozrn.123',
+    server: 'localhost',
+    database: 'otelresepsiyon',
+  };
+
+  return sql.connect(config).then(() => {
+    var request = new sql.Request().query(incomingQuery).then(result => {
+      return '{ "status":"success", "result":' + JSON.stringify(result) + '}';
+    }).catch(err => {
+      return '{ "status":"error", "result":"Sorgu Çalıştırılırken Bir Problem İle Karşılaşıldı: ' + err + '" }';
+    });
+    return request;
+  }).catch(err => {
+    return '{ "status":"error", "result":"Veri Tabanına Bağlanırken Bir Hata İle Karşılaşıldı: ' + err + '" }';
+  });
 }
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    store.clear();
     app.quit();
   }
 });
 
 app.on('activate', () => {
   if (win === null) {
-    store.clear();
     createWindow();
   }
-});
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', async () => {
-  if (isDevelopment && !process.env.IS_TEST) {
-    // Install Vue Devtools
-    // Devtools extensions are broken in Electron 6.0.0 and greater
-    // See https://github.com/nklayman/vue-cli-plugin-electron-builder/issues/378 for more info
-    // Electron will not launch with Devtools extensions installed on Windows 10 with dark mode
-    // If you are not using Windows 10 dark mode, you may uncomment these lines
-    // In addition, if the linked issue is closed, you can upgrade electron and uncomment these lines
-    // try {
-    //   await installVueDevtools()
-    // } catch (e) {
-    //   console.error('Vue Devtools failed to install:', e.toString())
-    // }
-
-  }
-  createWindow();
-
-  ipcMain.on('menuMinimizedBtnClicked', (err, data) => {
-    win.minimize();
-  });
-
-  ipcMain.on('menuClosedBtnClicked', (err, data) => {
-    app.quit();
-  });
-
-  ipcMain.on('ulkeler', (err, data) => {
-    console.log(data);
-  });
-
-  ipcMain.on('newRoom', (err, data) => {
-    console.log(data);
-    win.webContents.send('todo:newItem','yeni oda eklendi');
-  });
-
-
-
-  connectToDatabase();
-
-  store.onDidChange((newVal,oldVal)=>{
-    console.log(newVal)
-  });
 });
 
 if (isDevelopment) {
@@ -123,30 +104,32 @@ if (isDevelopment) {
   }
 }
 
-function connectToDatabase() {
-  var config = {
-    user: 'klaus',
-    password: 'sametozrn.123',
-    server: 'localhost',
-    database: 'otelresepsiyon',
-  };
+app.on('ready', async () => {
+  createWindow();
 
-  // connect to your database
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    // create Request object
-    var request = new sql.Request();
-
-    // query to the database and get the records
-    request.query('SELECT * FROM Ulkeler', function (err, recordset) {
-      if (err) {
-        console.log("Something went wrong")
-      } else {
-        var result = JSON.stringify(recordset);
-
-
-        store.set('ulkeler', result);
-      }
-    });
+  ipcMain.on('menuMinimizedBtnClicked', (err, data) => {
+    win.minimize();
   });
-}
+
+  ipcMain.on('menuClosedBtnClicked', (err, data) => {
+    app.quit();
+  });
+
+  ipcMain.on('ulkeler', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        console.log((response.result || {}).recordset || []);
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  ipcMain.on('newRoom', (err, data) => {
+    console.log(data);
+    win.webContents.send('todo:newItem', 'yeni oda eklendi');
+  });
+});
