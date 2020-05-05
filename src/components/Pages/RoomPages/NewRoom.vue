@@ -66,11 +66,11 @@
             this.description = '';
 
             if (response.indexOf('success') !== -1) {
-              this.$toasted.success('Yeni Oda Başarıyla Kayıt Edildi.')
+              this.$toasted.success('Yeni Oda Başarıyla Kayıt Edildi.');
             }
           });
         } else {
-          this.$toasted.error('Lütfen Tüm Alanları Eksiksiz Doldurun.')
+          this.$toasted.error('Lütfen Tüm Alanları Eksiksiz Doldurun.');
         }
       },
     },

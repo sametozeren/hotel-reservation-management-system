@@ -34,11 +34,11 @@ export const routes = [{
         path: ':id/edit',
         name: 'roomEdit',
         component: RoomEdit
-    },{
+    }, {
         path: ':id/delete',
         name: 'roomDelete',
         component: RoomDelete
-    },{
+    }, {
         path: '/newRoom',
         name: 'newRoom',
         component: NewRoom
@@ -59,16 +59,16 @@ export const routes = [{
         path: ':id/edit',
         name: 'customerEdit',
         component: CustomerEdit
-    },{
+    }, {
         path: ':id/delete',
         name: 'customerDelete',
         component: CustomerDelete
-    },{
+    }, {
         path: '/newCustomer',
         name: 'newCustomer',
         component: NewCustomer
     }],
-},{
+}, {
     path: '*',
     name: 'default',
     redirect: '/'

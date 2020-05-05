@@ -60,8 +60,8 @@ function createWindow() {
  */
 function sendQueryToDatabase(incomingObject) {
   var config = {
-    user: 'klaus',
-    password: 'sametozrn.123',
+    user: 'admin',
+    password: '12312',
     server: 'localhost',
     database: 'otelresepsiyon',
   };
@@ -262,7 +262,7 @@ app.on('ready', async () => {
     }
   });
 
-  /* Customer komponentinde müşterileri listeleme için yazılan kodlar */
+  /* CustomerDetail komponentinde müşteri bilgilerini çekmek için yazılan kodlar */
   ipcMain.on('getCustomer', async (err, data) => {
     if (data !== '' && typeof data === 'string') {
       var result = await sendQueryToDatabase(data);
@@ -271,6 +271,20 @@ app.on('ready', async () => {
       if (response.status === 'success') {
         console.log(JSON.stringify(((response.result || {}).recordset || [])))
         win.webContents.send('getCustomerResponse', JSON.stringify(((response.result || {}).recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  /* DeleteCustomer komponentinde müşteriyi silmek için yazılan kodlar */
+  ipcMain.on('deleteCustomer', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('deleteCustomerResponse', 'success');
       } else {
         console.log("Sonuç Bulunamadı");
       }
