@@ -7,9 +7,11 @@
     <div class="col-md-12">
       <div class="container-fluid">
         <div class="row">
-          <router-link v-for="(room, index) in rooms" tag="a" :to="{ name: 'roomDetail', params: { id : room.id}}"
-            :key="index" class="btn btn-danger p-5 m-2 col-md-1">
-            {{room.no}}
+          <router-link v-for="(roomList, index) in roomList" tag="a"
+            :to="{ name: 'roomDetail', params: { id : roomList.OdaId}}" :key="index" class="btn p-5 m-2 col-md-1"
+            :class="{'btn-info':roomList.OdaDurumu,'btn-danger':!roomList.OdaDurumu}"
+            :title="roomList.OdaDurumu ? 'Boş Oda':'Dolu Oda'">
+            {{roomList.OdaNumarasi}}
           </router-link>
         </div>
       </div>
@@ -18,97 +20,28 @@
 </template>
 
 <script>
+  const electron = require('electron');
+  const {
+    ipcRenderer
+  } = electron;
+
   export default {
     data() {
       return {
-        rooms: [{
-            id: 1,
-            no: '200'
-          },
-          {
-            id: 2,
-            no: '201'
-          },
-          {
-            id: 3,
-            no: '202'
-          },
-          {
-            id: 4,
-            no: '203'
-          },
-          {
-            id: 5,
-            no: '204'
-          },
-          {
-            id: 6,
-            no: '205'
-          },
-          {
-            id: 7,
-            no: '206'
-          },
-          {
-            id: 8,
-            no: '207'
-          },
-          {
-            id: 9,
-            no: '208'
-          },
-          {
-            id: 10,
-            no: '209'
-          },
-          {
-            id: 11,
-            no: '210'
-          },
-          {
-            id: 12,
-            no: '211'
-          },
-          {
-            id: 13,
-            no: '212'
-          },
-          {
-            id: 14,
-            no: '213'
-          },
-          {
-            id: 15,
-            no: '214'
-          },
-          {
-            id: 16,
-            no: '215'
-          },
-          {
-            id: 17,
-            no: '216'
-          },
-          {
-            id: 18,
-            no: '217'
-          },
-          {
-            id: 18,
-            no: '217'
-          },
-          {
-            id: 18,
-            no: '217'
-          },
-          {
-            id: 18,
-            no: '217'
-          }
-        ]
+        roomList: []
       }
     },
-    components: {}
+    created: function () {
+      /* 
+        Oda listesini çekmek için yapılan işlemler 
+      */
+      ipcRenderer.send('roomList',
+        '{"queryType":"SELECT", "queryString":"SELECT OdaId,OdaNumarasi,OdaDurumu FROM Odalar"}'
+      );
+      ipcRenderer.on('roomListResponse', (err, response) => {
+        this.roomList = (JSON.parse(response || '') || {}) || [];
+      });
+    },
   }
 </script>
 

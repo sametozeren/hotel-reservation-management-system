@@ -11,25 +11,25 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Id</th>
+                                    <th scope="col">Kimlik Numarasi</th>
                                     <th scope="col">Ad</th>
                                     <th scope="col">Soyad</th>
                                     <th scope="col">Aksiyonlar</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(customer, index) in customers" :key="index">
-                                    <th scope="row">{{customer.id}}</th>
-                                    <td>{{ customer.name }}</td>
-                                    <td>{{ customer.surname }}</td>
+                                <tr v-for="(customer, index) in customerList" :key="index">
+                                    <th scope="row">{{customer.KimlikNumarasi}}</th>
+                                    <td>{{ customer.Ad }}</td>
+                                    <td>{{ customer.Soyad}}</td>
                                     <td>
                                         <router-link tag="a"
-                                            :to="{ name: 'customerDetail', params: { id : customer.id}}"
+                                            :to="{ name: 'customerDetail', params: { id : customer.MusteriId}}"
                                             class="btn btn-info">
                                             Detaylı Bilgi
                                         </router-link>
                                         <router-link tag="a"
-                                            :to="{ name: 'customerDelete', params: { id : customer.id}}"
+                                            :to="{ name: 'customerDelete', params: { id : customer.MusteriId}}"
                                             class="btn btn-danger">
                                             Sil
                                         </router-link>
@@ -45,39 +45,27 @@
 </template>
 
 <script>
+    const electron = require('electron');
+    const {
+        ipcRenderer
+    } = electron;
+
     export default {
         data() {
             return {
-                customers: [{
-                    id: 1,
-                    name: 'Samet',
-                    surname: 'Özeren',
-                }, {
-                    id: 2,
-                    name: 'Burak',
-                    surname: 'Esen',
-                }, {
-                    id: 3,
-                    name: 'Şeymanur',
-                    surname: 'Uysal',
-                }, {
-                    id: 4,
-                    name: 'Samet',
-                    surname: 'Yücel',
-                }, {
-                    id: 5,
-                    name: 'Murat',
-                    surname: 'Esen',
-                }, {
-                    id: 6,
-                    name: 'Buğra Necmettin',
-                    surname: 'Topal',
-                }, {
-                    id: 7,
-                    name: 'Mert',
-                    surname: 'Özeren',
-                }, ]
+                customerList: []
             }
+        },
+        created: function () {
+            /* 
+                Müşteri listesini çekmek için yapılan işlemler 
+            */
+            ipcRenderer.send('customerList',
+                '{"queryType":"SELECT", "queryString":"SELECT MusteriId,Ad,Soyad,KimlikNumarasi FROM Musteriler"}'
+            );
+            ipcRenderer.on('customerListResponse', (err, response) => {
+                this.customerList = (JSON.parse(response || '') || {}) || [];
+            });
         },
     }
 </script>

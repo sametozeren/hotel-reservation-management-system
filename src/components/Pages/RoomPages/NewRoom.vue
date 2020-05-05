@@ -55,16 +55,23 @@
     },
     methods: {
       newRoom() {
-        ipcRenderer.send('newRoom',
-          '{"queryType":"INSERT", "queryString":"INSERT INTO Odalar (OdaNumarasi, OdaTipiId, OdaDurumu, Aciklama) ' +
-          'VALUES (\'' + this.newRoomNumber + '\',' + this.roomTypeSelected + ',1,\'' + this.description + '\')"}'
-        );
-        ipcRenderer.on('newRoomResponse', (err, response) => {
-          this.roomTypeSelected=1,
-          this.newRoomNumber='',
-          this.description='',
-          console.log(response)
-        });
+        if (this.newRoomNumber !== '' && this.description !== '') {
+          ipcRenderer.send('newRoom',
+            '{"queryType":"INSERT", "queryString":"INSERT INTO Odalar (OdaNumarasi, OdaTipiId, OdaDurumu, Aciklama) ' +
+            'VALUES (\'' + this.newRoomNumber + '\',' + this.roomTypeSelected + ',1,\'' + this.description + '\')"}'
+          );
+          ipcRenderer.on('newRoomResponse', (err, response) => {
+            this.roomTypeSelected = 1;
+            this.newRoomNumber = '';
+            this.description = '';
+
+            if (response.indexOf('success') !== -1) {
+              this.$toasted.success('Yeni Oda Başarıyla Kayıt Edildi.')
+            }
+          });
+        } else {
+          this.$toasted.error('Lütfen Tüm Alanları Eksiksiz Doldurun.')
+        }
       },
     },
     created: function () {

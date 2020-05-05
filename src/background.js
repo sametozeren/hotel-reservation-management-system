@@ -175,7 +175,6 @@ app.on('ready', async () => {
     }
   });
 
-  /* NewRoom komponentinde yeni oda ekleme isteğine ait işlemler */
   ipcMain.on('newRoom', async (err, data) => {
     console.log(data)
     if (data !== '' && typeof data === 'string') {
@@ -186,6 +185,94 @@ app.on('ready', async () => {
         win.webContents.send('newRoomResponse', 'success');
       } else {
         console.log("Kayıt Eklenemedi");
+      }
+    }
+  });
+
+  /* NewCustomer komponentine ait işlemler */
+  ipcMain.on('countryList', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        console.log(JSON.stringify(((response.result || {}).recordset || [])))
+        win.webContents.send('countryListResponse', JSON.stringify(((response.result || {}).recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  ipcMain.on('identityList', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        console.log(JSON.stringify(((response.result || {}).recordset || [])))
+        win.webContents.send('identityListResponse', JSON.stringify(((response.result || {}).recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  ipcMain.on('newCustomer', async (err, data) => {
+    console.log(data)
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('newCustomerResponse', 'success');
+      } else {
+        console.log("Kayıt Eklenemedi");
+      }
+    }
+  });
+
+  /* RoomList komponentinde odaları listeleme için yazılan kodlar */
+  ipcMain.on('roomList', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        console.log(JSON.stringify(((response.result || {}).recordset || [])))
+        win.webContents.send('roomListResponse', JSON.stringify(((response.result || {}).recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  /* Customer komponentinde müşterileri listeleme için yazılan kodlar */
+  ipcMain.on('customerList', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        console.log(JSON.stringify(((response.result || {}).recordset || [])))
+        win.webContents.send('customerListResponse', JSON.stringify(((response.result || {}).recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  /* Customer komponentinde müşterileri listeleme için yazılan kodlar */
+  ipcMain.on('getCustomer', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        console.log(JSON.stringify(((response.result || {}).recordset || [])))
+        win.webContents.send('getCustomerResponse', JSON.stringify(((response.result || {}).recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
       }
     }
   });

@@ -4,6 +4,7 @@ import Rooms from './components/Pages/RoomPages/Rooms';
 import RoomList from './components/Pages/RoomPages/RoomList';
 import RoomDetail from './components/Pages/RoomPages/RoomDetail';
 import RoomEdit from './components/Pages/RoomPages/RoomEdit';
+import RoomDelete from './components/Pages/RoomPages/RoomDelete';
 import NewRoom from './components/Pages/RoomPages/NewRoom';
 
 import Customers from './components/Pages/CustomerPages/Customers';
@@ -33,6 +34,10 @@ export const routes = [{
         path: ':id/edit',
         name: 'roomEdit',
         component: RoomEdit
+    },{
+        path: ':id/delete',
+        name: 'roomDelete',
+        component: RoomDelete
     },{
         path: '/newRoom',
         name: 'newRoom',

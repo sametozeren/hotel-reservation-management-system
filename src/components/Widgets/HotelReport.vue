@@ -71,7 +71,7 @@
                 Anasayfa üzerinde otelde aktif olarak kullanılan oda sayısını göstermek için yapılan işlemler
             */
             ipcRenderer.send('roomRatio',
-                '{"queryType":"SELECT", "queryString":"SELECT COUNT(OdaId) AS roomRatio FROM Odalar WHERE OdaDurumu=1"}'
+                '{"queryType":"SELECT", "queryString":"SELECT COUNT(OdaId) AS roomRatio FROM Odalar WHERE OdaDurumu=0"}'
             );
             ipcRenderer.on('roomRatioResponse', (err, response) => {
                 this.roomRatio = ((JSON.parse(response || '') || {})[0] || {}).roomRatio || 0;
