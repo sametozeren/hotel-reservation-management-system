@@ -277,7 +277,7 @@ app.on('ready', async () => {
     }
   });
 
-  /* DeleteCustomer komponentinde müşteriyi silmek için yazılan kodlar */
+  /* CustomerDelete komponentinde müşteriyi silmek için yazılan kodlar */
   ipcMain.on('deleteCustomer', async (err, data) => {
     if (data !== '' && typeof data === 'string') {
       var result = await sendQueryToDatabase(data);
@@ -285,6 +285,20 @@ app.on('ready', async () => {
 
       if (response.status === 'success') {
         win.webContents.send('deleteCustomerResponse', 'success');
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  /* RoomDelete komponentinde odayı silmek için yazılan kodlar */
+  ipcMain.on('deleteRoom', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('deleteRoomResponse', 'success');
       } else {
         console.log("Sonuç Bulunamadı");
       }

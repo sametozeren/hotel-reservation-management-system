@@ -19,17 +19,17 @@
       }
     },
     methods: {
-      deleteCustomer() {
-        ipcRenderer.send('deleteCustomer',
-          '{"queryType":"SELECT", "queryString":"DELETE FROM Musteriler WHERE MusteriId=' + this.id + '"}'
+      deleteRoom() {
+        ipcRenderer.send('deleteRoom',
+          '{"queryType":"DELETE", "queryString":"DELETE FROM Odalar WHERE OdaId=' + this.id + '"}'
         );
 
-        ipcRenderer.on('deleteCustomerResponse', (err, response) => {
+        ipcRenderer.on('deleteRoomResponse', (err, response) => {
           if (response === 'success') {
-            this.$toasted.success('Kullanıcı Başarıyla Silindi');
-            this.$router.push({ name: 'customerList' });
+            this.$toasted.success('Oda Başarıyla Silindi');
+            this.$router.push({ name: 'roomList' });
           } else {
-            this.$toasted.error('Kullanıcı Maalesef Silinemedi')
+            this.$toasted.error('Oda Maalesef Silinemedi')
           }
         });
       }

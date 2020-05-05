@@ -21,7 +21,7 @@
     methods: {
       deleteCustomer() {
         ipcRenderer.send('deleteCustomer',
-          '{"queryType":"SELECT", "queryString":"DELETE FROM Musteriler WHERE MusteriId=' + this.id + '"}'
+          '{"queryType":"DELETE", "queryString":"DELETE FROM Musteriler WHERE MusteriId=' + this.id + '"}'
         );
 
         ipcRenderer.on('deleteCustomerResponse', (err, response) => {
