@@ -19,9 +19,9 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(customer, index) in customerList" :key="index">
-                                    <th scope="row">{{customer.KimlikNumarasi}}</th>
-                                    <td>{{ customer.Ad }}</td>
-                                    <td>{{ customer.Soyad}}</td>
+                                    <th class="pt-4" scope="row">{{customer.KimlikNumarasi}}</th>
+                                    <td class="pt-4" >{{ customer.Ad }}</td>
+                                    <td class="pt-4" >{{ customer.Soyad}}</td>
                                     <td>
                                         <router-link tag="a"
                                             :to="{ name: 'customerDetail', params: { id : customer.MusteriId}}"
