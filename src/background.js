@@ -290,6 +290,20 @@ app.on('ready', async () => {
       }
     }
   });
+
+  /* RoomDelete komponentinde odayı silmek için yazılan kodlar */
+  ipcMain.on('deleteRoom', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('deleteRoomResponse', 'success');
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
   
   /*Dolu Odanın Müşteri Çekme İşlemi */
   ipcMain.on('getFullRoom', async (err, data) => {
