@@ -277,7 +277,7 @@ app.on('ready', async () => {
     }
   });
 
-  /* DeleteCustomer komponentinde müşteriyi silmek için yazılan kodlar */
+  /* CustomerDelete komponentinde müşteriyi silmek için yazılan kodlar */
   ipcMain.on('deleteCustomer', async (err, data) => {
     if (data !== '' && typeof data === 'string') {
       var result = await sendQueryToDatabase(data);
@@ -290,7 +290,7 @@ app.on('ready', async () => {
       }
     }
   });
-
+  
   /*Dolu Odanın Müşteri Çekme İşlemi */
   ipcMain.on('getFullRoom', async (err, data) => {
     if (data !== '' && typeof data === 'string') {
@@ -332,5 +332,4 @@ app.on('ready', async () => {
       }
     }
   });
-
 });
