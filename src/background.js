@@ -290,6 +290,46 @@ app.on('ready', async () => {
       }
     }
   });
-
   
+  /*Dolu Odanın Müşteri Çekme İşlemi */
+  ipcMain.on('getFullRoom', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('getFullRoomResponse', JSON.stringify(((response.result || {}).recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+ /*Oda Bilgi Çekme İşlemi*/ 
+  ipcMain.on('getRoom', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('getRoomResponse', JSON.stringify(((response.result || {}).recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  /*Odaya Müşteri Ekleme işlemi*/ 
+  ipcMain.on('addCustomerToRoom', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('addCustomerToRoomResponse', JSON.stringify(((response.result || {}).recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
 });
