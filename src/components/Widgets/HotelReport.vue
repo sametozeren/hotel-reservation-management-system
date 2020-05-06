@@ -82,7 +82,7 @@
             */
             ipcRenderer.send('monthPerPrice',
                 '{"queryType":"SELECT", "queryString":"SELECT SUM(ToplamFiyat) AS monthPerPrice FROM Faturalar Where ' +
-                'DATEPART(MONTH, Tarih)=' + date.getMonth() + ' AND DATEPART(YEAR,Tarih)=' + date
+                'DATEPART(MONTH, Tarih)=' + (date.getMonth() + 1) + ' AND DATEPART(YEAR,Tarih)=' + date
                 .getUTCFullYear() + '"}'
             );
             ipcRenderer.on('monthPerPriceResponse', (err, response) => {

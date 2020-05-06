@@ -68,6 +68,7 @@ function sendQueryToDatabase(incomingObject) {
 
   return sql.connect(config).then(() => {
     var incomingObjectParse = JSON.parse(incomingObject || '{}') || {};
+    console.log(incomingObject)
     var queryString = incomingObjectParse.queryString || '';
     console.log(queryString+'*******************');
     var request = new sql.Request().query(queryString).then(result => {
@@ -340,7 +341,21 @@ app.on('ready', async () => {
       var response = JSON.parse(result || '{}') || {};
 
       if (response.status === 'success') {
-        win.webContents.send('addCustomerToRoomResponse', JSON.stringify(((response.result || {}).recordset || [])));
+        win.webContents.send('addCustomerToRoomResponse', (JSON.stringify(response)||'[]'));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  /*Yeni fatura ekleme işlemi*/ 
+  ipcMain.on('newOrder', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('newOrderResponse', (JSON.stringify(response)||'[]'));
       } else {
         console.log("Sonuç Bulunamadı");
       }
