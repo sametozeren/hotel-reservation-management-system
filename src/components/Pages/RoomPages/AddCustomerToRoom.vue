@@ -33,7 +33,7 @@
                                 <DatePicker style="display:inline-block;" v-model="leaveDate"></DatePicker>
                             </div>
                             <div class="btn btn-warning col-md-6" style="margin:0!important" @click="addReservation()">
-                                Rezervasyon Oluştur</div>
+                                Konaklamayı Başlat</div>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
             return {
                 startDate: date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear(),
                 leaveDate: date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear(),
-                id: this.$route.params.id,
+                roomId: this.$route.params.id,
                 customerList: [],
                 customerPaymentName: '',
                 orderId: '',
@@ -75,8 +75,9 @@
 
                 this.customerList.forEach(element => {
                     element.Durum = 1;
-                    console.log('durum çalıştı')
                 });
+
+                console.log(this.customerList)
             });
         },
         methods: {
@@ -88,8 +89,6 @@
                         this.orderId += element.MusteriId.toString()
                     }
                 });
-
-                console.log(this.customerList)
             },
             addReservation() {
                 var startDate = new Date(this.startDate);
@@ -104,7 +103,7 @@
                 */
                 ipcRenderer.send('newOrder',
                     '{"queryType":"INSERT", "queryString":"INSERT INTO Faturalar ' +
-                    '(FaturaId,Tarih,ToplamFiyat,OdemeYapanKisi) VALUES(' + parseInt(this.orderId + this.id) +
+                    '(FaturaId,Tarih,ToplamFiyat,OdemeYapanKisi) VALUES(' + parseInt(this.orderId + this.roomId) +
                     ',\'' + this.startDate + '\',' + totalPrice + ',\'' + this.customerPaymentName +
                     '\')"}'
                 );
@@ -115,22 +114,26 @@
                                 ipcRenderer.send('addCustomerToRoom',
                                     '{"queryType":"INSERT", "queryString":"INSERT INTO MusteriOdaHareketleri ' +
                                     '(MusteriId, OdaId,GirisTarihi, CikisTarihi,EkstraFiyat,Durum, FaturaId) VALUES (' +
-                                    customer.MusteriId + ',' + this.id + ',\'' + this.startDate +
+                                    customer.MusteriId + ',' + this.roomId + ',\'' + this
+                                    .startDate +
                                     '\',\'' + newDateArray + '\',0,1,' + parseInt(this.orderId +
-                                        this.id) + ')"}'
+                                        this.roomId) + ')"}'
                                 );
                                 ipcRenderer.on('addCustomerToRoomResponse', (err, response) => {
                                     if (response.indexOf('success') !== -1) {
-                                        ipcRenderer.send('newRoom',
-                                            '{"queryType":"UPDATE", "queryString":"UPDATE Odalar SET OdaDurumu=0 ' +
-                                            'WHERE OdaId=' + this.id + '"}'
-                                        );
-                                        ipcRenderer.on('newRoomResponse', (err, response) => {
-                                            if (response.indexOf('success') !== -1) {
-                                                this.$router.push({ name: 'roomList' });
-                                            }
-                                        });
+                                        console.log('asdasdasdas')
                                     }
+                                });
+                            }
+                        });
+                        ipcRenderer.send('newRoom',
+                            '{"queryType":"UPDATE", "queryString":"UPDATE Odalar SET OdaDurumu=0 ' +
+                            'WHERE OdaId=' + this.roomId + '"}'
+                        );
+                        ipcRenderer.on('newRoomResponse', (err, response) => {
+                            if (response.indexOf('success') !== -1) {
+                                this.$router.push({
+                                    name: "roomList"
                                 });
                             }
                         });

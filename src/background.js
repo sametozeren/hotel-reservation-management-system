@@ -383,7 +383,36 @@ app.on('ready', async () => {
       var response = JSON.parse(result || '{}') || {};
 
       if (response.status === 'success') {
-        win.webContents.send('reservationHistoryListResponse', JSON.stringify(((response.result || {}).recordset || [])));
+        win.webContents.send('reservationHistoryListResponse', JSON.stringify(((response.result || {})
+          .recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  /* Müşteri Durumu Güncelleme İçin Yapılan İşlemler */
+  ipcMain.on('customerRoomExit', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('customerRoomExitResponse', (JSON.stringify(response) || '[]'));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  /* Oda Durumu Güncelleme İçin Yapılan İşlemler */
+  ipcMain.on('roomStatusChange', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('roomStatusChangeResponse', (JSON.stringify(response) || '[]'));
       } else {
         console.log("Sonuç Bulunamadı");
       }

@@ -7,11 +7,11 @@
     <div class="col-md-12">
       <div class="container-fluid">
         <div class="row">
-          <router-link v-for="(roomList, index) in roomList" tag="a"
-            :to="{ name: 'roomDetail', params: { id : roomList.OdaId}}" :key="index" class="btn p-5 m-2 col-md-1"
-            :class="{'btn-info':roomList.OdaDurumu,'btn-danger':!roomList.OdaDurumu}"
-            :title="roomList.OdaDurumu ? 'Boş Oda':'Dolu Oda'">
-            {{roomList.OdaNumarasi}}
+          <router-link v-for="(room, index) in roomList" tag="a"
+            :to="{ name: 'roomDetail', params: { id : room.OdaId}}" :key="index" class="btn p-5 m-2 col-md-1"
+            :class="{'btn-info':room.OdaDurumu,'btn-danger':!room.OdaDurumu}"
+            :title="room.OdaDurumu ? 'Boş Oda':'Dolu Oda'">
+            {{room.OdaNumarasi}}
           </router-link>
         </div>
       </div>
