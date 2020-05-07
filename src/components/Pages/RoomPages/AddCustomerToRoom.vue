@@ -55,7 +55,7 @@
         data() {
             return {
                 startDate: date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear(),
-                leaveDate: date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear(),
+                leaveDate: (date.getMonth()+1) + '.' + date.getDate() + '.' + date.getFullYear(),
                 roomId: this.$route.params.id,
                 customerList: [],
                 customerPaymentName: '',
@@ -79,6 +79,7 @@
 
                 console.log(this.customerList)
             });
+            console.log(this.leaveDate)
         },
         methods: {
             addCustomerToRoom(MusteriId) {
@@ -96,6 +97,7 @@
                 var timeSpan = Math.abs(startDate.getTime() - leaveDate.getTime());
                 var totalPrice = Math.ceil(timeSpan / (1000 * 3600 * 24)) * parseInt(this.roomPrice);
                 var newDateArray = leaveDate.toString().split(' ');
+                
 
                 newDateArray = newDateArray[2] + '.' + newDateArray[1] + '.' + newDateArray[3];
                 /* 
