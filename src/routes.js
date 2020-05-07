@@ -14,6 +14,12 @@ import CustomerEdit from './components/Pages/CustomerPages/CustomerEdit';
 import CustomerDelete from './components/Pages/CustomerPages/CustomerDelete';
 import NewCustomer from './components/Pages/CustomerPages/NewCustomer';
 
+import Invoice from './components/Pages/InvoicePages/Invoice';
+import InvoiceList from './components/Pages/InvoicePages/InvoiceList';
+
+import ReservationHistory from './components/Pages/ReservationHistoryPages/ReservationHistory';
+import ReservationHistoryList from './components/Pages/ReservationHistoryPages/ReservationHistoryList';
+
 export const routes = [{
     path: '/',
     name: 'home',
@@ -68,7 +74,25 @@ export const routes = [{
         name: 'newCustomer',
         component: NewCustomer
     }],
+},{
+    path: '/reservationHistory',
+    name: 'reservationHistory',
+    component: ReservationHistory,
+    children: [{
+        path: '',
+        name: 'reservationHistoryList',
+        component: ReservationHistoryList
+    }]
 }, {
+    path: '/invoice',
+    name: 'invoice',
+    component: Invoice,
+    children: [{
+        path: '',
+        name: 'invoiceList',
+        component: InvoiceList
+    }]
+},{
     path: '*',
     name: 'default',
     redirect: '/'

@@ -70,7 +70,7 @@ function sendQueryToDatabase(incomingObject) {
     var incomingObjectParse = JSON.parse(incomingObject || '{}') || {};
     console.log(incomingObject)
     var queryString = incomingObjectParse.queryString || '';
-    console.log(queryString+'*******************');
+    console.log(queryString + '*******************');
     var request = new sql.Request().query(queryString).then(result => {
       return '{ "status":"success", "responseType":"' + (incomingObjectParse.queryType || '') + '","result":' +
         JSON.stringify(result) + '}';
@@ -305,7 +305,7 @@ app.on('ready', async () => {
       }
     }
   });
-  
+
   /*Dolu Odanın Müşteri Çekme İşlemi */
   ipcMain.on('getFullRoom', async (err, data) => {
     if (data !== '' && typeof data === 'string') {
@@ -320,7 +320,7 @@ app.on('ready', async () => {
     }
   });
 
- /*Oda Bilgi Çekme İşlemi*/ 
+  /*Oda Bilgi Çekme İşlemi*/
   ipcMain.on('getRoom', async (err, data) => {
     if (data !== '' && typeof data === 'string') {
       var result = await sendQueryToDatabase(data);
@@ -334,28 +334,56 @@ app.on('ready', async () => {
     }
   });
 
-  /*Odaya Müşteri Ekleme işlemi*/ 
+  /*Odaya Müşteri Ekleme işlemi*/
   ipcMain.on('addCustomerToRoom', async (err, data) => {
     if (data !== '' && typeof data === 'string') {
       var result = await sendQueryToDatabase(data);
       var response = JSON.parse(result || '{}') || {};
 
       if (response.status === 'success') {
-        win.webContents.send('addCustomerToRoomResponse', (JSON.stringify(response)||'[]'));
+        win.webContents.send('addCustomerToRoomResponse', (JSON.stringify(response) || '[]'));
       } else {
         console.log("Sonuç Bulunamadı");
       }
     }
   });
 
-  /*Yeni fatura ekleme işlemi*/ 
+  /*Yeni fatura ekleme işlemi*/
   ipcMain.on('newOrder', async (err, data) => {
     if (data !== '' && typeof data === 'string') {
       var result = await sendQueryToDatabase(data);
       var response = JSON.parse(result || '{}') || {};
 
       if (response.status === 'success') {
-        win.webContents.send('newOrderResponse', (JSON.stringify(response)||'[]'));
+        win.webContents.send('newOrderResponse', (JSON.stringify(response) || '[]'));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  /* Oluşturulan Faturaları Çekme İşlemi */
+  ipcMain.on('invoiceList', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('invoiceListResponse', JSON.stringify(((response.result || {}).recordset || [])));
+      } else {
+        console.log("Sonuç Bulunamadı");
+      }
+    }
+  });
+
+  /* Müşteri hareketlerini çekme İşlemi */
+  ipcMain.on('reservationHistoryList', async (err, data) => {
+    if (data !== '' && typeof data === 'string') {
+      var result = await sendQueryToDatabase(data);
+      var response = JSON.parse(result || '{}') || {};
+
+      if (response.status === 'success') {
+        win.webContents.send('reservationHistoryListResponse', JSON.stringify(((response.result || {}).recordset || [])));
       } else {
         console.log("Sonuç Bulunamadı");
       }

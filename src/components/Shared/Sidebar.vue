@@ -19,18 +19,18 @@
                     <span class="menu-item-text animated">Müşteriler</span>
                 </a>
             </router-link>
-            <!--<router-link to="/test" tag='li'>
+            <router-link to="/reservationHistory" tag='li'>
                 <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
                     <i class="material-icons menu-icons-size">history</i>
                     <span class="menu-item-text animated">Rezervasyon Geçmişi</span>
                 </a>
             </router-link>
-            <router-link to="/label" tag='li'>
+            <router-link to="/invoice" tag='li'>
                 <a @mouseover="mouseMove($event)" @mouseleave="mouseLeave($event)" href="">
                     <i class="material-icons menu-icons-size">receipt</i>
                     <span class="menu-item-text animated">Faturalar</span>
                 </a>
-            </router-link>-->
+            </router-link>
         </ul>
     </div>
 </template>

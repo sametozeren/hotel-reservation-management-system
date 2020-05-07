@@ -1,9 +1,6 @@
 <template>
     <div class="row">
-        <h4 class="pl-4 pt-2 text-muted font-weight-bold">Müşteriler</h4>
-        <div class="col-md-12 pl-4">
-            <router-link tag="a" class="btn btn-success" :to="{name:'newCustomer'}">Yeni Müşteri Ekle</router-link>
-        </div>
+        <h4 class="pl-4 pt-2 text-muted font-weight-bold">Faturalar</h4>
         <div class="col-md-12">
             <div class="container-fluid">
                 <div class="row">
@@ -17,35 +14,39 @@
                             <input type="text" class="form-control" placeholder="Ara..">
                         </div>
                     </div>
-                    <div class="pl-5 pt-4 font-weight-bold">Sisteme kayıt yapılan son 5 müşteriyi görüntülemektesiniz.
-                        Dilerseniz, sol
-                        tarafta yer alan arama kutusunu <br> kullanarak dilediğiniz müşteriyi bulabilirsiniz.</div>
+                    <div class="pl-5  font-weight-bold pt-4">Görüntülemek İstediğiniz Faturayı Bulmak İçin Sol Tarafta
+                        Yer Alan Arama Kutusunu
+                        Kullanabilirsiniz</div>
                     <div class="col-md-12  pt-3">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Kimlik Numarasi</th>
-                                    <th scope="col">Ad</th>
-                                    <th scope="col">Soyad</th>
-                                    <th scope="col">Aksiyonlar</th>
+                                    <th scope="col">Fatura No</th>
+                                    <th scope="col">Oluşturulduğu Tarih</th>
+                                    <th scope="col">Ödenen Tutar</th>
+                                    <th scope="col">Ödeme Yapan Kişi</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(customer, index) in customerList" :key="index">
-                                    <th class="pt-4" scope="row">{{customer.KimlikNumarasi}}</th>
-                                    <td class="pt-4">{{ customer.Ad }}</td>
-                                    <td class="pt-4">{{ customer.Soyad}}</td>
+                                <tr v-for="(invoice, index) in invoiceList" :key="index">
+                                    <th class="pt-4" scope="row">{{invoice.FaturaId}}</th>
+                                    <td class="pt-4">{{ invoice.Tarih }}</td>
+                                    <td class="pt-4">{{ invoice.ToplamFiyat}}</td>
+                                    <td class="pt-4">{{ invoice.OdemeYapanKisi}}</td>
                                     <td>
+                                        <!-- TODO -->
                                         <router-link tag="a"
-                                            :to="{ name: 'customerDetail', params: { id : customer.MusteriId}}"
+                                            :to="{ name: 'customerDetail', params: { id : invoice.MusteriId}}"
                                             class="btn btn-info">
                                             Detaylı Bilgi
                                         </router-link>
                                         <router-link tag="a"
-                                            :to="{ name: 'customerDelete', params: { id : customer.MusteriId}}"
+                                            :to="{ name: 'customerDelete', params: { id : invoice.MusteriId}}"
                                             class="btn btn-danger">
                                             Sil
                                         </router-link>
+                                        <!-- TODO -->
                                     </td>
                                 </tr>
                             </tbody>
@@ -66,19 +67,19 @@
     export default {
         data() {
             return {
-                customerList: []
+                invoiceList: []
             }
         },
         created: function () {
             /* 
                 Müşteri listesini çekmek için yapılan işlemler 
             */
-            ipcRenderer.send('customerList',
-                '{"queryType":"SELECT", "queryString":"SELECT TOP 5 MusteriId,Ad,Soyad,KimlikNumarasi FROM ' +
-                'Musteriler ORDER BY MusteriId DESC"}'
+            ipcRenderer.send('invoiceList',
+                '{"queryType":"SELECT", "queryString":"SELECT TOP 5 FaturaId, CONVERT(varchar,Tarih, 104)' +
+                ' AS Tarih, ToplamFiyat, OdemeYapanKisi FROM Faturalar ORDER BY FaturaId DESC"}'
             );
-            ipcRenderer.on('customerListResponse', (err, response) => {
-                this.customerList = (JSON.parse(response || '') || {}) || [];
+            ipcRenderer.on('invoiceListResponse', (err, response) => {
+                this.invoiceList = (JSON.parse(response || '') || {}) || [];
             });
         },
     }
